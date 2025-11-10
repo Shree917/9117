@@ -1,0 +1,98 @@
+//html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Portfolio</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #e6f2ff; /* light blue */
+        }
+
+        header, footer {
+            background: #0073e6;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #333;
+        }
+
+        nav a {
+            color: #fff;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background: #575757;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            padding: 20px;
+        }
+
+        .card {
+            background: #cce0ff; /* soft blue */
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>My Portfolio</h1>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Projects</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+</nav>
+
+<div class="grid">
+    <div class="card">
+        <img src="https://via.placeholder.com/200">
+        <h3>Project 1</h3>
+    </div>
+    <div class="card">
+        <img src="https://via.placeholder.com/200">
+        <h3>Project 2</h3>
+    </div>
+    <div class="card">
+        <img src="https://via.placeholder.com/200">
+        <h3>Project 3</h3>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 My Portfolio</p>
+</footer>
+
+</body>
+</html>
