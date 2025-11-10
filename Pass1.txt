@@ -1,0 +1,62 @@
+public class Pass1 {
+    public static void main(String[] args) {
+
+        String[][] input = {
+                { "", "START", "101", "" },
+                { "", "MOVER", "BREG", "" },
+                { "AGAIN", "MULT", "BREG", "TERM" },
+                { "", "MOVER", "CREG", "TERM" },
+                { "", "ADD", "CREG", "N" },
+                { "RESULT", "DS", "2", "" },
+                { "ONE", "DC", "1", "" },
+                { "TERM", "DC", "1", "" },
+                { "", "END", "", "" }
+        };
+
+        String[] symbol = new String[20];
+        int[] address = new int[20];
+        int symIndex = 0;
+        int LC = 0;
+
+        System.out.println("PASS 1 START\n");
+
+        for (int i = 0; i < input.length; i++) {
+
+            String label = input[i][0];
+            String opcode = input[i][1];
+            String operand = input[i][2];
+
+            if (opcode.equals("START")) {
+                LC = Integer.parseInt(operand);
+                System.out.println("START found → LC = " + LC);
+                continue;
+            }
+
+            if (!label.equals("")) { // label present
+                symbol[symIndex] = label;
+                address[symIndex] = LC;
+                symIndex++;
+                System.out.println("Label added: " + label + " at " + LC);
+            }
+
+            if (opcode.equals("DS")) {
+                LC += Integer.parseInt(operand);
+            } else if (opcode.equals("DC")) {
+                LC += 1;
+            } else if (!opcode.equals("END")) {
+                LC += 1; // instruction
+            }
+
+            if (opcode.equals("END")) {
+                System.out.println("END found → STOP");
+                break;
+            }
+        }
+
+        System.out.println("\n----- SYMBOL TABLE -----");
+        System.out.println("Symbol\tAddress");
+        for (int i = 0; i < symIndex; i++) {
+            System.out.println(symbol[i] + "\t" + address[i]);
+        }
+    }
+}

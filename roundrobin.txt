@@ -1,0 +1,49 @@
+import java.util.*;
+
+class roundrobin {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of processes: ");
+        int n = sc.nextInt();
+        int bt[] = new int[n], rem[] = new int[n], tat[] = new int[n], wt[] = new int[n];
+        System.out.println("Enter burst times:");
+        for (int i = 0; i < n; i++) {
+            bt[i] = sc.nextInt();
+            rem[i] = bt[i];
+        }
+        System.out.print("Enter time quantum: ");
+        int q = sc.nextInt();
+        int t = 0;
+        while (true) {
+            boolean done = true;
+            for (int i = 0; i < n; i++) {
+                if (rem[i] > 0) {
+                    done = false;
+                    if (rem[i] > q) {
+                        t += q;
+                        rem[i] -= q;
+                    } else {
+                        t += rem[i];
+                        tat[i] = t;
+                        rem[i] = 0;
+                    }
+                }
+            }
+            if (done) break;
+        }
+        for (int i = 0; i < n; i++) wt[i] = tat[i] - bt[i];
+        float avgWT = 0, avgTAT = 0;
+        for (int i = 0; i < n; i++) {
+            avgWT += wt[i];
+            avgTAT += tat[i];
+        }
+        avgWT /= n;
+        avgTAT /= n;
+        System.out.println("\nP\tBT\tTAT\tWT");
+        for (int i = 0; i < n; i++)
+            System.out.println("P" + (i + 1) + "\t" + bt[i] + "\t" + tat[i] + "\t" + wt[i]);
+        System.out.print("\nAverage Waiting Time: "+ avgWT);
+        System.out.print("\nAverage Turnaround Time: "+ avgTAT);
+        
+    }
+}
