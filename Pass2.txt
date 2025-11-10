@@ -1,0 +1,70 @@
+public class Pass2{
+
+    public static void main(String[] args) {
+
+        // Input (no label handling here, only for translation)
+        String[][] input = {
+                { "", "START", "101", "" },
+                { "", "MOVER", "BREG", "" },
+                { "", "MULT", "BREG", "TERM" },
+                { "", "MOVER", "CREG", "TERM" },
+                { "", "ADD", "CREG", "N" },
+                { "", "DC", "1", "" },
+                { "", "DC", "1", "" },
+                { "", "DC", "1", "" },
+                { "", "END", "", "" }
+        };
+
+        // Symbol table from Pass 1 (manually defined)
+        String[] sym = {"TERM"};
+        int[] adr = {108};
+        int symCount = 1;
+
+        // Opcodes table (simple)
+        String[] opcode = {"MOVER", "MULT", "ADD"};
+        String[] code = {"01", "02", "03"};
+
+        int LC = 0;
+
+        System.out.println("Pass 2 Output (Machine Code)");
+        System.out.println("LC\tInstruction");
+
+        for (int i = 0; i < input.length; i++) {
+
+            String op = input[i][1];
+            String opd = input[i][2];
+
+            if (op.equals("START")) {
+                LC = Integer.parseInt(opd);
+                continue;
+            }
+
+            if (op.equals("END")) break;
+
+            if (op.equals("DC")) {
+                System.out.println(LC + "\t" + opd);
+                LC++;
+                continue;
+            }
+
+            String opnum = "00";
+            for (int j = 0; j < opcode.length; j++) {
+                if (op.equals(opcode[j])) {
+                    opnum = code[j];
+                    break;
+                }
+            }
+
+            int opAdd = 0;
+            for (int j = 0; j < symCount; j++) {
+                if (opd.equals(sym[j])) {
+                    opAdd = adr[j];
+                    break;
+                }
+            }
+
+            System.out.println(LC + "\t" + opnum + " " + opAdd);
+            LC++;
+        }
+    }
+}
